@@ -86,6 +86,7 @@ public class Season {
 					score += this.PERGAMEPLAYED;
 					played_games.add(g);
 					double bonus = 0;
+					@SuppressWarnings("unused") //This variable helps with debugging
 					double scoreDiff = 0;
 					if(g.winner().equals(t.getName())){
 						if(isFBS(g.loser())){
