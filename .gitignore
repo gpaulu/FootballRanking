@@ -4,3 +4,36 @@
 *.jar
 *.war
 *.ear
+
+#################
+## Eclipse
+#################
+
+#.project
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+#.classpath
+.settings/
+.loadpath
+lint.xml
+libs/
+project.properties
+
+############
+## Windows
+############
+
+# Windows image file caches
+Thumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Mac crap
+.DS_Store
