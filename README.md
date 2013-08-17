@@ -9,6 +9,10 @@ This program is designed to read game data input from this source: http://prwolf
 
 Known Issues
 ============
+
+I hacked out this code one night, but I realized it has a major problem. If Texas A&M plays Alabama and Auburn in that order, they will get credit for Alabama beating Auburn but won't lose anything for Auburn losing. I need to revise the algorithm so that it does a BFS, is symetric in terms of points for winning or losing, and stops searching based on the team, not the game. Please don't use this code yet, it's horribly broken, and I need some times to figure out how to do it right. 
+
+
 - Games are sometimes counted more than once. The current tree search is DFS. This should be changed to BFS for best results. Perhaps some kind of iterative deepening could be helpful.
 - Parts of the user configuration are not very clean
 - Slow - I think the switch to BFS and no game duplication should fix this
