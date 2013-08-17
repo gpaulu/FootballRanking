@@ -88,41 +88,52 @@ public class Season {
 		return recScore(t, 0, played_games); 
 	}
 	
+	/*
+	 * This is the ranking algorithm. The algorithm will perform a BFS on the graph. 
+	 * The root team will get/lose points for every win/lose. Additional points will be awarded/removed for margin of victory/lose.
+	 * SOS is taken into consideration by awarding/removing points for every win/lose of the root's opponents and their opponents etc. with diminishing returns.
+	 */
 	private double calcRankBFS(Team root){
 		double score = 0;
+		//teams will get partial forgiveness for playing 1 FCS team
 		boolean firstFCS = true;
 		LinkedBlockingQueue<TeamPair> queue = new LinkedBlockingQueue<TeamPair>();
+		//set of visited nodes for the BFS
 		Set<String> visited = new HashSet<String>();
 		visited.add(root.getName());
+		//set of a node's parents/grandparents/etc. This keeps a node from doubling up on their victories.
 		Set<String> parents = new HashSet<String>();
 		parents.add(root.getName());
 		try {
 			queue.put(new TeamPair(root,0,parents));
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		//search until every team has been visited
 		while(!queue.isEmpty()){
 			TeamPair pair = queue.poll();
 			for(Game g : pair.team.getGames()){
+				//fewer points awarded, the deeper the node is from the root
 				double marginalScore = (this.PERGAME+g.getScoreDiff())/Math.pow(numWeeks, pair.depth);
 				String otherName;
 				int newWins = pair.parentWins;
+				//if this node won the game
 				if(g.winner().equals(pair.team.getName())){
 					otherName = g.loser();
 					if(!pair.parents.contains(otherName)){
-						if(isFBS(otherName)){
-						}
-						else{
+						//if the other team is FCS, change the marginal score
+						if(!isFBS(otherName)){
 							if(firstFCS){
 								firstFCS = false;
 								marginalScore = (this.FIRSTFCS+g.getScoreDiff())/Math.pow(numWeeks, pair.depth);
 							}
 							else{
 								marginalScore = (this.FCSWIN+g.getScoreDiff())/Math.pow(numWeeks, pair.depth);
-						
 							}
 						}
+						/*
+						 * The multiplier works by multiplying for every win in parent chain and dividing for every lose.
+						 */
 						score += Math.pow(1.2, pair.parentWins)*marginalScore;
 						newWins++;
 					}
@@ -130,18 +141,20 @@ public class Season {
 				else{
 					otherName = g.winner();
 					if(!pair.parents.contains(otherName)){
-						if(isFBS(otherName)){
-						}
-						else{
+						if(!isFBS(otherName)){
 							if(firstFCS){
 								firstFCS = false;
 							}
 							marginalScore = (this.FCSLOSE+g.getScoreDiff())/Math.pow(numWeeks, pair.depth);
 						}
+						/*
+						 * The multiplier works by dividing for every win in parent chain and multiplying for every lose.
+						 */
 						score -= Math.pow(1.2, pair.parentWins*-1)*marginalScore;
 						newWins--;
 					}
 				}
+				//Add other team to the queue
 				if(!visited.contains(otherName)){
 					visited.add(otherName);
 					Team other = getTeamByName(otherName);
@@ -150,7 +163,6 @@ public class Season {
 					try {
 						queue.put(new TeamPair(other,pair.depth+1,newParents,newWins));
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
