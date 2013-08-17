@@ -9,13 +9,16 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class Season {
 	
+	//not a pair anymore. oops. too lazy to rename
 	private static class TeamPair{
 		public Team team;
 		public int depth;
+		public Set<String> parents;
 		
-		public TeamPair(Team t, int d){
+		public TeamPair(Team t, int d, Set<String> p){
 			team = t;
 			depth = d;
+			parents = p;
 		}
 	}
 	
@@ -29,6 +32,7 @@ public class Season {
 	private final double PERLOSE = 85;
 	//points for playing an FCS team
 	private final double FCSWIN = 20;
+	private final double FIRSTFCS = 50;
 	private final double FCSLOSE = 200;
 	//changes the difference in bonus points for winner/loser. higher = bigger difference
 	//should be between 0 and 1
@@ -78,11 +82,14 @@ public class Season {
 	
 	private double calcRankBFS(Team root){
 		double score = 0;
+		boolean firstFCS = true;
 		LinkedBlockingQueue<TeamPair> queue = new LinkedBlockingQueue<TeamPair>();
 		Set<String> visited = new HashSet<String>();
 		visited.add(root.getName());
+		Set<String> parents = new HashSet<String>();
+		parents.add(root.getName());
 		try {
-			queue.put(new TeamPair(root,0));
+			queue.put(new TeamPair(root,0,parents));
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -94,28 +101,43 @@ public class Season {
 				String otherName;
 				if(g.winner().equals(pair.team.getName())){
 					otherName = g.loser();
-					if(isFBS(otherName)){
-						score += marginalScore;
+					if(!pair.parents.contains(otherName)){
+						if(isFBS(otherName)){
+							score += marginalScore;
+						}
+						else{
+							if(firstFCS){
+								firstFCS = false;
+								score += (this.FIRSTFCS+g.getScoreDiff())/Math.pow(numWeeks, pair.depth);
+							}
+							else{
+								score += (this.FCSWIN+g.getScoreDiff())/Math.pow(numWeeks, pair.depth);
 						
-					}
-					else{
-						score += (this.FCSWIN+g.getScoreDiff())/Math.pow(numWeeks, pair.depth);
+							}
+						}
 					}
 				}
 				else{
 					otherName = g.winner();
-					if(isFBS(otherName)){
-						score -= marginalScore;
-					}
-					else{
-						score -= (this.FCSLOSE+g.getScoreDiff())/Math.pow(numWeeks, pair.depth);
+					if(!pair.parents.contains(otherName)){
+						if(isFBS(otherName)){
+							score -= marginalScore;
+						}
+						else{
+							if(firstFCS){
+								firstFCS = false;
+							}
+							score -= (this.FCSLOSE+g.getScoreDiff())/Math.pow(numWeeks, pair.depth);
+						}
 					}
 				}
 				if(!visited.contains(otherName)){
 					visited.add(otherName);
 					Team other = getTeamByName(otherName);
+					Set<String> newParents = new HashSet<String>(pair.parents);
+					newParents.add(pair.team.getName());
 					try {
-						queue.put(new TeamPair(other,pair.depth+1));
+						queue.put(new TeamPair(other,pair.depth+1,newParents));
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
