@@ -1,10 +1,24 @@
+import java.util.AbstractQueue;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
+import java.util.concurrent.LinkedBlockingQueue;
 
 
 public class Season {
+	
+	private static class TeamPair{
+		public Team team;
+		public int depth;
+		
+		public TeamPair(Team t, int d){
+			team = t;
+			depth = d;
+		}
+	}
+	
 	private List<Team> teams;
 	private int numWeeks;
 	private Set<String> bcsTeams;
@@ -25,7 +39,7 @@ public class Season {
 	//decrease this number to speed up run time. 
 	private final int MAXDEPTH = 2;
 	private final boolean DEBUG = false;
-	private final String DEBUG_TEAM = "Oregon St";
+	private final String DEBUG_TEAM = "Texas A&M";
 	//---------------------
 
 	//private Set<Game> played_games;
@@ -39,13 +53,13 @@ public class Season {
 	public void calcRankings(){
 		if(!this.DEBUG){
 		for(Team team : teams){
-			team.setRankingScore(calcRank(team));
+			team.setRankingScore(calcRankBFS(team));
 		}
 		}
 		else{
 		//
 		Team team = this.getTeamByName(this.DEBUG_TEAM);
-		team.setRankingScore(calcRank(team));
+		team.setRankingScore(calcRankBFS(team));
 		//
 		}
 		
@@ -60,6 +74,56 @@ public class Season {
 	private double calcRank(Team t){
 		Set<Game> played_games = new HashSet<Game>();
 		return recScore(t, 0, played_games); 
+	}
+	
+	private double calcRankBFS(Team root){
+		double score = 0;
+		LinkedBlockingQueue<TeamPair> queue = new LinkedBlockingQueue<TeamPair>();
+		Set<String> visited = new HashSet<String>();
+		visited.add(root.getName());
+		try {
+			queue.put(new TeamPair(root,0));
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		while(!queue.isEmpty()){
+			TeamPair pair = queue.poll();
+			for(Game g : pair.team.getGames()){
+				double marginalScore = (this.PERGAME+g.getScoreDiff())/Math.pow(numWeeks, pair.depth);
+				String otherName;
+				if(g.winner().equals(pair.team.getName())){
+					otherName = g.loser();
+					if(isFBS(otherName)){
+						score += marginalScore;
+						
+					}
+					else{
+						score += (this.FCSWIN+g.getScoreDiff())/Math.pow(numWeeks, pair.depth);
+					}
+				}
+				else{
+					otherName = g.winner();
+					if(isFBS(otherName)){
+						score -= marginalScore;
+					}
+					else{
+						score -= (this.FCSLOSE+g.getScoreDiff())/Math.pow(numWeeks, pair.depth);
+					}
+				}
+				if(!visited.contains(otherName)){
+					visited.add(otherName);
+					Team other = getTeamByName(otherName);
+					try {
+						queue.put(new TeamPair(other,pair.depth+1));
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		return score;
 	}
 
 	private double recScore(Team t, int depth, Set<Game> played_games){
