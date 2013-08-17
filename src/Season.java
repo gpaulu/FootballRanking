@@ -65,6 +65,13 @@ public class Season {
 	private double recScore(Team t, int depth, Set<Game> played_games){
 		double score = 0;
 		if(depth <= this.MAXDEPTH){
+			Set<Game> played_this_round = new HashSet<Game>();
+			for(Game g : t.getGames()){
+				if(!played_games.contains(g)){
+					played_games.add(g);
+					played_this_round.add(g);
+				}
+			}
 			for(int i=0; i<t.getGames().size(); i++){
 				double postSeasonBonus = 1;
 				Game g = t.getGames().get(i);
@@ -82,7 +89,7 @@ public class Season {
 						postSeasonBonus = 1.5;
 					}
 				}
-				if(!played_games.contains(g)){
+				if(!played_games.contains(g) || played_this_round.contains(g)){
 					score += this.PERGAMEPLAYED;
 					played_games.add(g);
 					double bonus = 0;
