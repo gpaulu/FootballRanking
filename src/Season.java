@@ -14,11 +14,19 @@ public class Season {
 		public Team team;
 		public int depth;
 		public Set<String> parents;
+		public int parentWins;
 		
 		public TeamPair(Team t, int d, Set<String> p){
 			team = t;
 			depth = d;
 			parents = p;
+			parentWins = 0;
+		}
+		public TeamPair(Team t, int d, Set<String> p, int w){
+			team = t;
+			depth = d;
+			parents = p;
+			parentWins = w;
 		}
 	}
 	
@@ -31,7 +39,7 @@ public class Season {
 	private final double PERGAME = 75;
 	private final double PERLOSE = 85;
 	//points for playing an FCS team
-	private final double FCSWIN = 20;
+	private final double FCSWIN = 10;
 	private final double FIRSTFCS = 50;
 	private final double FCSLOSE = 200;
 	//changes the difference in bonus points for winner/loser. higher = bigger difference
@@ -99,36 +107,39 @@ public class Season {
 			for(Game g : pair.team.getGames()){
 				double marginalScore = (this.PERGAME+g.getScoreDiff())/Math.pow(numWeeks, pair.depth);
 				String otherName;
+				int newWins = pair.parentWins;
 				if(g.winner().equals(pair.team.getName())){
 					otherName = g.loser();
 					if(!pair.parents.contains(otherName)){
 						if(isFBS(otherName)){
-							score += marginalScore;
 						}
 						else{
 							if(firstFCS){
 								firstFCS = false;
-								score += (this.FIRSTFCS+g.getScoreDiff())/Math.pow(numWeeks, pair.depth);
+								marginalScore = (this.FIRSTFCS+g.getScoreDiff())/Math.pow(numWeeks, pair.depth);
 							}
 							else{
-								score += (this.FCSWIN+g.getScoreDiff())/Math.pow(numWeeks, pair.depth);
+								marginalScore = (this.FCSWIN+g.getScoreDiff())/Math.pow(numWeeks, pair.depth);
 						
 							}
 						}
+						score += Math.pow(1.2, pair.parentWins)*marginalScore;
+						newWins++;
 					}
 				}
 				else{
 					otherName = g.winner();
 					if(!pair.parents.contains(otherName)){
 						if(isFBS(otherName)){
-							score -= marginalScore;
 						}
 						else{
 							if(firstFCS){
 								firstFCS = false;
 							}
-							score -= (this.FCSLOSE+g.getScoreDiff())/Math.pow(numWeeks, pair.depth);
+							marginalScore = (this.FCSLOSE+g.getScoreDiff())/Math.pow(numWeeks, pair.depth);
 						}
+						score -= Math.pow(1.2, pair.parentWins*-1)*marginalScore;
+						newWins--;
 					}
 				}
 				if(!visited.contains(otherName)){
@@ -137,7 +148,7 @@ public class Season {
 					Set<String> newParents = new HashSet<String>(pair.parents);
 					newParents.add(pair.team.getName());
 					try {
-						queue.put(new TeamPair(other,pair.depth+1,newParents));
+						queue.put(new TeamPair(other,pair.depth+1,newParents,newWins));
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
