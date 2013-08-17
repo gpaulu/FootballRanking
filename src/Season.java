@@ -42,6 +42,8 @@ public class Season {
 	private final double FCSWIN = 10;
 	private final double FIRSTFCS = 50;
 	private final double FCSLOSE = 200;
+	
+	private final double SOSMULT = 1.2;
 	//changes the difference in bonus points for winner/loser. higher = bigger difference
 	//should be between 0 and 1
 	private final double QUAL_WIN_MULT = 0.5;
@@ -134,7 +136,7 @@ public class Season {
 						/*
 						 * The multiplier works by multiplying for every win in parent chain and dividing for every lose.
 						 */
-						score += Math.pow(1.2, pair.parentWins)*marginalScore;
+						score += Math.pow(this.SOSMULT, pair.parentWins)*marginalScore;
 						newWins++;
 					}
 				}
@@ -150,7 +152,7 @@ public class Season {
 						/*
 						 * The multiplier works by dividing for every win in parent chain and multiplying for every lose.
 						 */
-						score -= Math.pow(1.2, pair.parentWins*-1)*marginalScore;
+						score -= Math.pow(this.SOSMULT, pair.parentWins*-1)*marginalScore;
 						newWins--;
 					}
 				}
