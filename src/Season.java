@@ -18,6 +18,7 @@ public class Season {
 	private final double DEPTHMOD = 1;
 	private final boolean DEBUG = false;
 	private final String DEBUG_TEAM = "Texas A&M";
+	private final boolean PRINT_SCORE = true;
 	//---------------------
 	
 	//not a pair anymore. oops. too lazy to rename
@@ -77,7 +78,11 @@ public class Season {
 	}
 	public void printTopTeams(){
 		for(int i=0; i<30; i++){
-			System.out.println((i+1) + ". " + teams.get(i).getName() + " (" + teams.get(i).getWins() + "-" + teams.get(i).getLoses() + ")\t" + teams.get(i).getRankingScore());
+			System.out.print((i+1) + ". " + teams.get(i).getName() + " (" + teams.get(i).getWins() + "-" + teams.get(i).getLoses() + ")");
+			if(this.PRINT_SCORE){
+				System.out.print("\t" + teams.get(i).getRankingScore());
+			}
+			System.out.println();
 		}
 	}
 	
