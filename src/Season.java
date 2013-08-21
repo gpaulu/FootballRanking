@@ -67,7 +67,7 @@ public class Season {
 	}
 	public void printTopTeams(){
 		for(int i=0; i<30; i++){
-			System.out.println((i+1) + ") " + teams.get(i).getName() + " (" + teams.get(i).getWins() + "-" + teams.get(i).getLoses() + ")\t" + teams.get(i).getRankingScore());
+			System.out.println((i+1) + ". " + teams.get(i).getName() + " (" + teams.get(i).getWins() + "-" + teams.get(i).getLoses() + ")\t" + teams.get(i).getRankingScore());
 		}
 	}
 	
