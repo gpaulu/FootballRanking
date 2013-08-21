@@ -15,28 +15,38 @@ public class Season {
 	private final double FIRSTFCS = 50;
 	private final double FCSLOSE = 200;
 	private final double SOSMULT = 1.2;
+	private final double DEPTHMOD = 1;
 	private final boolean DEBUG = false;
 	private final String DEBUG_TEAM = "Texas A&M";
 	//---------------------
 	
 	//not a pair anymore. oops. too lazy to rename
-	private static class TeamPair{
-		public Team team;
-		public int depth;
-		public Set<String> parents;
-		public int parentWins;
+	private class TeamPair{
+		private Team team;
+		private int depth;
+		private Set<String> parents;
+		private int parentWins;
 		
 		public TeamPair(Team t, int d, Set<String> p){
-			team = t;
-			depth = d;
-			parents = p;
-			parentWins = 0;
+			this(t,d,p,0);
 		}
 		public TeamPair(Team t, int d, Set<String> p, int w){
 			team = t;
 			depth = d;
 			parents = p;
 			parentWins = w;
+		}
+		public Team getTeam() {
+			return team;
+		}
+		public int getDepth() {
+			return depth;
+		}
+		public Set<String> getParents() {
+			return parents;
+		}
+		public int getParentWins() {
+			return parentWins;
 		}
 	}
 	
@@ -95,45 +105,45 @@ public class Season {
 		//search until every team has been visited
 		while(!queue.isEmpty()){
 			TeamPair pair = queue.poll();
-			for(Game g : pair.team.getGames()){
+			for(Game g : pair.getTeam().getGames()){
 				//fewer points awarded, the deeper the node is from the root
-				double marginalScore = (this.PERGAME+g.getScoreDiff())/Math.pow(numWeeks, pair.depth);
+				double marginalScore = (this.PERGAME+g.getScoreDiff())/Math.pow(numWeeks*this.DEPTHMOD, pair.getDepth());
 				String otherName;
-				int newWins = pair.parentWins;
+				int newWins = pair.getParentWins();
 				//if this node won the game
-				if(g.winner().equals(pair.team.getName())){
+				if(g.winner().equals(pair.getTeam().getName())){
 					otherName = g.loser();
-					if(!pair.parents.contains(otherName)){
+					if(!pair.getParents().contains(otherName)){
 						//if the other team is FCS, change the marginal score
 						if(!isFBS(otherName)){
 							if(firstFCS){
 								firstFCS = false;
-								marginalScore = (this.FIRSTFCS+g.getScoreDiff())/Math.pow(numWeeks, pair.depth);
+								marginalScore = (this.FIRSTFCS+g.getScoreDiff())/Math.pow(numWeeks*this.DEPTHMOD, pair.getDepth());
 							}
 							else{
-								marginalScore = (this.FCSWIN+g.getScoreDiff())/Math.pow(numWeeks, pair.depth);
+								marginalScore = (this.FCSWIN+g.getScoreDiff())/Math.pow(numWeeks*this.DEPTHMOD, pair.getDepth());
 							}
 						}
 						/*
 						 * The multiplier works by multiplying for every win in parent chain and dividing for every lose.
 						 */
-						score += Math.pow(this.SOSMULT, pair.parentWins)*marginalScore;
+						score += Math.pow(this.SOSMULT, pair.getParentWins())*marginalScore;
 						newWins++;
 					}
 				}
 				else{
 					otherName = g.winner();
-					if(!pair.parents.contains(otherName)){
+					if(!pair.getParents().contains(otherName)){
 						if(!isFBS(otherName)){
 							if(firstFCS){
 								firstFCS = false;
 							}
-							marginalScore = (this.FCSLOSE+g.getScoreDiff())/Math.pow(numWeeks, pair.depth);
+							marginalScore = (this.FCSLOSE+g.getScoreDiff())/Math.pow(numWeeks*this.DEPTHMOD, pair.getDepth());
 						}
 						/*
 						 * The multiplier works by dividing for every win in parent chain and multiplying for every lose.
 						 */
-						score -= Math.pow(this.SOSMULT, pair.parentWins*-1)*marginalScore;
+						score -= Math.pow(this.SOSMULT, pair.getParentWins()*-1)*marginalScore;
 						newWins--;
 					}
 				}
@@ -141,10 +151,10 @@ public class Season {
 				if(!visited.contains(otherName)){
 					visited.add(otherName);
 					Team other = getTeamByName(otherName);
-					Set<String> newParents = new HashSet<String>(pair.parents);
-					newParents.add(pair.team.getName());
+					Set<String> newParents = new HashSet<String>(pair.getParents());
+					newParents.add(pair.getTeam().getName());
 					try {
-						queue.put(new TeamPair(other,pair.depth+1,newParents,newWins));
+						queue.put(new TeamPair(other,pair.getDepth()+1,newParents,newWins));
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
