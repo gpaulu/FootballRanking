@@ -92,7 +92,7 @@ public class Ranking {
 				Season computer = new Season(teams, numWeeks, bcsTeams);
 				computer.calcRankings();
 				System.out.println("Done computing.\n");
-				computer.printTopTeams();
+				computer.printTopTeamsRedditTable();
 				data.close();
 			}
 		} catch (FileNotFoundException e) {
