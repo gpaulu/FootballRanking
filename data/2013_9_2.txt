@@ -1,0 +1,140 @@
+23-Aug-13 Jamestown                   20 Rocky Mountain              34 Miles City MT
+29-Aug-13 Illinois St                 28 Ball St                     51 
+29-Aug-13 Tulsa                        7 Bowling Green               34 
+29-Aug-13 Incarnate Word               7 Central Arkansas            58 
+29-Aug-13 Akron                        7 Central Florida             38 
+29-Aug-13 Tennessee-Martin            31 Chattanooga                 21 
+29-Aug-13 Towson                      33 Connecticut                 18 
+29-Aug-13 Jacksonville FL             35 Delaware                    51 
+29-Aug-13 Montana St-Northern         14 Dickinson St                 0 
+29-Aug-13 Grand View                  21 Drake                       16 
+29-Aug-13 Robert Morris PA             6 Eastern Kentucky            38 
+29-Aug-13 Rhode Island                26 Fordham                     51 
+29-Aug-13 Rutgers                     51 Fresno St                   52 
+29-Aug-13 Southern Cal                30 Hawai`i                     13 
+29-Aug-13 Indiana St                  35 Indiana                     73 
+29-Aug-13 Liberty                     10 Kent St                     17 
+29-Aug-13 Western Carolina            24 Middle Tennessee St         45 
+29-Aug-13 UNLV                        23 Minnesota                   51 
+29-Aug-13 Northwestern St             23 Missouri St                 17 
+29-Aug-13 Monmouth NJ                 24 Montana St                  42 
+29-Aug-13 Pikeville                   13 Morehead St                 10 
+29-Aug-13 Valparaiso                  10 North Dakota                69 
+29-Aug-13 Eastern Oregon              17 Portland St                 57 
+29-Aug-13 Sacramento St                0 San José St                 24 
+29-Aug-13 SE Missouri St               7 SE Louisiana St             45 
+29-Aug-13 Southern Utah               22 South Alabama               21 
+29-Aug-13 North Carolina              10 South Carolina              27 
+29-Aug-13 Cumberland TN                7 Tennessee Tech              63 
+29-Aug-13 Jackson St                   7 Tulane                      34 
+29-Aug-13 Utah St                     26 Utah                        30 
+29-Aug-13 Mississippi                 39 Vanderbilt                  35 
+29-Aug-13 Presbyterian                 7 Wake Forest                 31 
+29-Aug-13 Hampton                      9 Western Illinois            42 
+29-Aug-13 Dayton                      10 Youngstown St               28 
+30-Aug-13 Northern Arizona             0 Arizona                     35
+30-Aug-13 Morgan St                   12 Army                        28
+30-Aug-13 Samford                     31 Georgia St                  21
+30-Aug-13 Southern U.                 13 Houston                     62
+30-Aug-13 North Dakota St             24 Kansas St                   21
+30-Aug-13 Florida Atlantic             6 Miami FL                    34
+30-Aug-13 Western Michigan            13 Michigan St                 26
+30-Aug-13 Texas Tech                  41 SMU                         23
+31-Aug-13 Concordia AL                 6 Abilene Christian           84  
+31-Aug-13 Colgate                     13 Air Force                   38  
+31-Aug-13 Virginia Tech               10 Alabama                     35 Atlanta GA
+31-Aug-13 Jacksonville St             24 Alabama St                  22  
+31-Aug-13 Edward Waters               12 Alcorn St                   63  
+31-Aug-13 Louisiana-Lafayette         14 Arkansas                    34  
+31-Aug-13 Arkansas-Pine Bluff         11 Arkansas St                 62  
+31-Aug-13 Washington St               24 Auburn                      31  
+31-Aug-13 Wofford                      3 Baylor                      69  
+31-Aug-13 Texas College               26 Belhaven                    36  
+31-Aug-13 Briar Cliff                  9 Benedictine KS              30  
+31-Aug-13 Haskell                     24 Bethel KS                   41  
+31-Aug-13 William Penn                34 Bethel TN                    8  
+31-Aug-13 Villanova                   14 Boston College              24  
+31-Aug-13 Holy Cross                  16 Bryant                      17  
+31-Aug-13 San Diego                   16 Cal Poly SLO                38  
+31-Aug-13 Northwestern                44 California                  30 
+31-Aug-13 Menlo                        7 Carroll MT                  51 Cheney WA
+31-Aug-13 Purdue                       7 Cincinnati                  42  
+31-Aug-13 Georgia                     35 Clemson                     38  
+31-Aug-13 Union KY                    21 Cumberlands KY              52  
+31-Aug-13 North Carolina Central       0 Duke                        45  
+31-Aug-13 Albany NY                   24 Duquesne                    35  
+31-Aug-13 Old Dominion                38 East Carolina               52  
+31-Aug-13 Howard                      24 Eastern Michigan            34  
+31-Aug-13 Webber Int'l                21 Faulkner                    51  
+31-Aug-13 Toledo                       6 Florida                     24  
+31-Aug-13 Furman                      21 Gardner-Webb                28  
+31-Aug-13 Savannah St                  9 Georgia Southern            77  
+31-Aug-13 Elon                         0 Georgia Tech                70  
+31-Aug-13 Alabama A&M                 23 Grambling St                 9  
+31-Aug-13 Southern Illinois           34 Illinois                    42  
+31-Aug-13 Northern Illinois           30 Iowa                        27  
+31-Aug-13 Northern Iowa               28 Iowa St                     20  
+31-Aug-13 Central Conn St             14 James Madison               38  
+31-Aug-13 Valley City St              31 Jamestown                   14  
+31-Aug-13 OK Panhandle St              0 Lamar                       75  
+31-Aug-13 Culver-Stockton             23 Lindenwood-Belleville       29  
+31-Aug-13 Campbellsville              17 Lindsey Wilson              24  
+31-Aug-13 Kentucky Christian           0 Marian IN                   23  
+31-Aug-13 Sacred Heart                37 Marist                      21  
+31-Aug-13 Miami OH                    14 Marshall                    52  
+31-Aug-13 Florida Int'l               10 Maryland                    43  
+31-Aug-13 Bacone                      37 McPherson                   31  
+31-Aug-13 Reinhardt                   37 Mercer                      40  
+31-Aug-13 Central Michigan             9 Michigan                    59  
+31-Aug-13 Mayville St                 27 Midland U.                  31  
+31-Aug-13 Murray St                   14 Missouri                    58  
+31-Aug-13 Appalachian St               6 Montana                     30  
+31-Aug-13 Wyoming                     34 Nebraska                    37  
+31-Aug-13 Texas-San Antonio           21 New Mexico                  13  
+31-Aug-13 Maine                       23 Norfolk St                   6  
+31-Aug-13 Louisiana Tech              14 North Carolina St           40  
+31-Aug-13 Idaho                        6 North Texas                 40  
+31-Aug-13 Langston                    10 Northern Colorado           31  
+31-Aug-13 Temple                       6 Notre Dame                  28  
+31-Aug-13 Buffalo                     20 Ohio State                  40  
+31-Aug-13 Louisiana-Monroe             0 Oklahoma                    34  
+31-Aug-13 Southwestern KS             26 Oklahoma Baptist            22  
+31-Aug-13 Mississippi St               3 Oklahoma St                 21 Houston TX
+31-Aug-13 Nicholls St                  3 Oregon                      66  
+31-Aug-13 Eastern Washington          49 Oregon St                   46  
+31-Aug-13 Syracuse                    17 Penn State                  23 East Rutherford NJ
+31-Aug-13 Dakota St                   21 Peru St                     56 Auburn NE
+31-Aug-13 Bluefield                   28 Point U.                    57  
+31-Aug-13 VMI                          0 Richmond                    34  
+31-Aug-13 Ave Maria                   20 Robert Morris IL            34 Chicago IL
+31-Aug-13 Houston Baptist              0 Sam Houston St              74  
+31-Aug-13 Eastern Illinois            40 San Diego St                19  
+31-Aug-13 Coastal Carolina            27 South Carolina St           20  
+31-Aug-13 UC-Davis                     7 South Dakota                10  
+31-Aug-13 Butler                      14 South Dakota St             55  
+31-Aug-13 McNeese St                  53 South Florida               21  
+31-Aug-13 Texas St-San Marcos         22 Southern Miss               15  
+31-Aug-13 Rocky Mountain              35 Southern Oregon             30 Grants Pass OR
+31-Aug-13 LSU                         37 TCU                         27 Arlington TX
+31-Aug-13 Austin Peay                  0 Tennessee                   45  
+31-Aug-13 New Mexico St                7 Texas                       56  
+31-Aug-13 Rice                        31 Texas A&M                   52  
+31-Aug-13 Prairie View A&M            37 Texas Southern              13  
+31-Aug-13 Charleston Southern         32 The Citadel                 29  
+31-Aug-13 Trinity Int'l               48 Trinity Bible                0  
+31-Aug-13 Alabama-Birmingham          31 Troy                        34  
+31-Aug-13 Nevada                      20 UCLA                        58  
+31-Aug-13 Campbell                     7 UNC-Charlotte               52  
+31-Aug-13 Brigham Young               16 Virginia                    19  
+31-Aug-13 Georgetown DC               21 Wagner                      28  
+31-Aug-13 Boise St                     6 Washington                  38  
+31-Aug-13 Stephen F. Austin           40 Weber St                    50  
+31-Aug-13 William & Mary              17 West Virginia               24  
+31-Aug-13 Kentucky                    26 Western Kentucky            35 Nashville TN
+31-Aug-13 Massachusetts                0 Wisconsin                   45  
+01-Sep-13 Colorado St                 27 Colorado                    41 Denver CO
+01-Sep-13 Mississippi Valley St       10 Florida A&M                 27 Orlando FL
+01-Sep-13 Ohio U.                      7 Louisville                  49
+01-Sep-13 Warner U.                    3 Stetson                     31
+01-Sep-13 Bethune-Cookman             12 Tennessee St                 9
+02-Sep-13 Florida St                  41 Pittsburgh                  13
