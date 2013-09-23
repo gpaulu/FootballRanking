@@ -6,6 +6,10 @@ public class Team implements Comparable<Team> {
 	private String name;
 	private List<Game> games;
 	private double rankingScore;
+	private int wins;
+	private int loses;
+	private boolean winsCalced;
+	private boolean losesCalced;
 	public String getName() {
 		return name;
 	}
@@ -14,9 +18,13 @@ public class Team implements Comparable<Team> {
 	}
 	public void setGames(List<Game> games) {
 		this.games = games;
+		this.winsCalced = false;
+		this.losesCalced = false;
 	}
 	public void addGame(Game game){
 		this.games.add(game);
+		this.winsCalced = false;
+		this.losesCalced = false;
 	}
 	public double getRankingScore() {
 		return rankingScore;
@@ -25,27 +33,37 @@ public class Team implements Comparable<Team> {
 		this.rankingScore = rankingScore;
 	}
 	public int getWins(){
-		int wins = 0;
-		for(Game g : games){
-			if(g.winner().equals(this.name)){
-				wins++;
+		if(!this.winsCalced){
+			int wins = 0;
+			for(Game g : games){
+				if(g.winner().equals(this.name)){
+					wins++;
+				}
 			}
+			this.wins = wins;
+			this.winsCalced = true;
 		}
-		return wins;
+		return this.wins;
 	}
 	public int getLoses(){
-		int loses = 0;
-		for(Game g : games){
-			if(g.loser().equals(this.name)){
-				loses++;
+		if(!this.losesCalced){
+			int loses = 0;
+			for(Game g : games){
+				if(g.loser().equals(this.name)){
+					loses++;
+				}
 			}
+			this.loses = loses;
+			this.losesCalced = true;
 		}
-		return loses;
+		return this.loses;
 	}
 	public Team(String name){
 		this.name = name;
 		this.games = new ArrayList<Game>();
 		this.rankingScore = 0;
+		this.winsCalced = false;
+		this.losesCalced = false;
 	}
 	@Override
 	public int compareTo(Team t) {

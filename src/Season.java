@@ -1,6 +1,8 @@
+import java.util.AbstractQueue;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -17,12 +19,12 @@ public class Season {
 	private final double SOSMULT = 1.2;
 	private final double DEPTHMOD = 1;
 	private final boolean DEBUG = false;
-	private final String DEBUG_TEAM = "Texas A&M";
+	private final String DEBUG_TEAM = "Alabama";
 	private final boolean PRINT_SCORE = true;
 	//---------------------
 	
 	//not a pair anymore. oops. too lazy to rename
-	private class TeamPair{
+	private class TeamPair implements Comparable<TeamPair>{
 		private Team team;
 		private int depth;
 		private Set<String> parents;
@@ -48,6 +50,13 @@ public class Season {
 		}
 		public int getParentWins() {
 			return parentWins;
+		}
+		//this is our heuristic to determine what order nodes should be added to the search queue
+		@Override
+		public int compareTo(TeamPair other) {
+			int myWins = this.team.getWins();
+			int otherWins = other.team.getWins();
+			return (otherWins + other.parentWins*100) - (myWins + this.parentWins*100);
 		}
 	}
 	
@@ -142,6 +151,7 @@ public class Season {
 		//search until every team has been visited
 		while(!queue.isEmpty()){
 			TeamPair pair = queue.poll();
+			AbstractQueue<TeamPair> thisTeamQueue = new PriorityQueue<TeamPair>();
 			for(Game g : pair.getTeam().getGames()){
 				//fewer points awarded, the deeper the node is from the root
 				double marginalScore = (this.PERGAME+g.getScoreDiff())/Math.pow(numWeeks*this.DEPTHMOD, pair.getDepth());
@@ -186,15 +196,31 @@ public class Season {
 				}
 				//Add other team to the queue
 				if(!visited.contains(otherName)){
-					visited.add(otherName);
+					
 					Team other = getTeamByName(otherName);
 					Set<String> newParents = new HashSet<String>(pair.getParents());
 					newParents.add(pair.getTeam().getName());
-					try {
+					/*try {
 						queue.put(new TeamPair(other,pair.getDepth()+1,newParents,newWins));
 					} catch (InterruptedException e) {
 						e.printStackTrace();
+					}*/
+					//Add to priority queue to determine optimal search order
+					thisTeamQueue.add(new TeamPair(other,pair.getDepth()+1,newParents,newWins));
+				}
+			}
+			//empty local priority queue into the global search queue
+			while(!thisTeamQueue.isEmpty()){
+				try {
+					TeamPair t = thisTeamQueue.poll();
+					String tName = t.getTeam().getName();
+					//the reason to do this is to allow rematches into the priority queue but not the global queue
+					if(!visited.contains(tName)){
+						visited.add(tName);
+						queue.put(t);
 					}
+				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
 			}
 		}
