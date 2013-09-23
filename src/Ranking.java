@@ -22,16 +22,11 @@ public class Ranking {
 		
 		System.out.println("Parsing data.");
 		Set<String> bcsTeams = new HashSet<String>();
-		try {
-			Scanner bcs = new Scanner(new File("data\\BCS_Teams.txt"));
-			while(bcs.hasNext()){
-				bcsTeams.add(bcs.nextLine().trim());
-			}
-			bcs.close();
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		Scanner bcs = new Scanner(Ranking.class.getResourceAsStream("data\\FBS_Teams.txt"));
+		while(bcs.hasNext()){
+			bcsTeams.add(bcs.nextLine().trim());
 		}
+		bcs.close();
 		Scanner data;
 		try {
 			data = new Scanner(new File("data\\" + dataFileName));
