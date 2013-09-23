@@ -96,6 +96,27 @@ public class Season {
 			System.out.println();
 		}
 	}
+	public void printCustomTeamsRedditTable(){
+		System.out.println("| Rank | Team | Record | Score |");
+		System.out.println("|:-----|:-----|:-------|:------|");
+		for(int i=0; i<30; i++){
+			System.out.print("| " + (i+1) + ". |" + teams.get(i).getName() + " | (" + teams.get(i).getWins() + "-" + teams.get(i).getLoses() + ") |");
+			if(this.PRINT_SCORE){
+				System.out.print(" " + teams.get(i).getRankingScore() + " |");
+			}
+			System.out.println();
+		}
+		for(int i=30; i<teams.size(); i++){
+			if(isFBS(teams.get(i).getName()) || i==teams.size()-1){
+				System.out.print("| " + (i+1) + ". |" + teams.get(i).getName() + " | (" + teams.get(i).getWins() + "-" + teams.get(i).getLoses() + ") |");
+				if(this.PRINT_SCORE){
+					System.out.print(" " + teams.get(i).getRankingScore() + " |");
+				}
+				System.out.println();
+			}
+		}
+		
+	}
 	
 	/*
 	 * This is the ranking algorithm. The algorithm will perform a BFS on the graph. 
